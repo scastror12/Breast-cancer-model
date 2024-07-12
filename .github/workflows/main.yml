@@ -12,8 +12,11 @@ jobs:
   retraining_model:
     runs-on: ubuntu-latest
     container: docker://dvcorg/cml:latest
+    permissions:
+    contents:write
+    Pull-request: write
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Upgrade pip
         run: pip install --upgrade pip
@@ -27,6 +30,9 @@ jobs:
           python3 retraining.py
 
       - name: Generating report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "## Model metrics" > report.md
           cat metrics.txt >> report.md
