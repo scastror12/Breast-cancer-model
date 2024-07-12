@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     container: docker://dvcorg/cml:latest
     permissions:
-    contents: write
-    Pull-request: write
+      contents: write
+      Pull-request: write
     steps:
       - uses: actions/checkout@v3
 
